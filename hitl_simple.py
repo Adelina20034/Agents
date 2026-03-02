@@ -38,30 +38,6 @@ def get_price(city: str, product:str)->str:
     
     return answer['messages'][-1].content
 
-# @tool
-# def get_weather(city: str, date: str) -> str:
-#     """Это инструмент для получения погоды в указанном городе"""
-#     weather_agent = create_agent(
-#         model=llm,
-#         system_prompt="""
-# Требуется предоставить прогнооз погоды для указанного города в виде таблицы
-# |Дата|Температура|Ветер|Давление|
-# на указанную дату. Если данных нет сформируй реалистичный ответ, заполни все ячейки таблицы.
-# Сделай прогноз на основании исторических тенденций
-# """,
-#     )
-#     answer = weather_agent.invoke(
-#         {
-#             "messages": [
-#                 {
-#                     "role": "human",
-#                     "content": f"Какая погода в городе {city} на дату {date}?",
-#                 }
-#             ]
-#         }
-#     )
-#     return answer["messages"][-1].content
-
 
 memory = MemorySaver()
 
@@ -130,9 +106,5 @@ while True:
     if user_input == "exit":
         break
 
-    # state = agent.get_state(config)
     ask_and_run({"messages": [{"role": "human", "content": user_input}]}, config)
     print('\n')
-    
-    # print(*{f'--{m.type}--{'t' if getattr(m, 'tool_calls', None) else ''}' for m in state.values['messages'][-1].tool_calls[0]})
-

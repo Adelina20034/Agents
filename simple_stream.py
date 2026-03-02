@@ -2,9 +2,6 @@ from langchain.agents import create_agent
 from langchain_openai import ChatOpenAI
 from pydantic import SecretStr
 from langchain.tools import tool
-from llm.gigachat import get_gigachat_llm
-
-llm = get_gigachat_llm(temperature=0.7)
 
 # llm = ChatOpenAI(
 #     model='openai/gpt-oss-20b',
@@ -13,12 +10,12 @@ llm = get_gigachat_llm(temperature=0.7)
 #     temperature=.7,
 # )
 
-# llm = ChatOpenAI(
-#     model='openai/gpt-oss-20b',
-#     base_url='http://localhost:1234/v1',
-#     api_key=SecretStr('fake'),
-#     temperature=.7,
-# )
+llm = ChatOpenAI(
+    model='openai/gpt-oss-20b',
+    base_url='http://localhost:1234/v1',
+    api_key=SecretStr('fake'),
+    temperature=.7,
+)
 
 @tool
 def get_price(city: str, product:str)->str:
@@ -95,6 +92,3 @@ for chunk in stream:
             print('\n---')
             print(format_message(chunk_data['model']['messages'][-1]))
             print('---')
-
-
-
